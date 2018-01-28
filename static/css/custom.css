@@ -1,0 +1,15 @@
+.mitte {
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -20px;
+  transform: translate(-30%, 100%);
+}
+
+p {
+	text-align: justify;
+}

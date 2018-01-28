@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>imgCropper 🐤</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ normalize_css }}">
+  <link rel="stylesheet" href="{{ skeleton_css }}">
+  <link rel="stylesheet" href="{{ custom_css }}">
+
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+      <div class="two columns">&nbsp;<h1>🦆</h1></div>
+      <div class="eight columns mitte" style="background-color: #eee">
+        <div>
+            <h4>Image-Cropping-Microservice</h4>
+            <p>This WebApp (in fact, the micro-service behind it) crops an image posted via POST-Request and responds the cropped image as jpeg.<br>It is powered by python with the help of some libraries (see <a href="#libraries">FAQ</a> below)</p>
+            <p style="text-align: center;">
+              <svg width="300px" height="250px" viewBox="0 0 300 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+                  <desc>Created with Sketch.</desc>
+                  <defs>
+                      <rect id="path-1" x="0" y="0" width="300" height="250"></rect>
+                      <pattern id="pattern-2" width="48" height="48" x="-48" y="-48" patternUnits="userSpaceOnUse">
+                          <use xlink:href="#image-3"></use>
+                      </pattern>
+                      <image id="image-3" width="48" height="48" xlink:href="data:image/png;base64,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"></image>
+                      <rect id="path-4" x="50" y="24" width="200" height="150"></rect>
+                      <pattern id="pattern-5" width="48" height="48" x="2" y="-24" patternUnits="userSpaceOnUse">
+                          <use xlink:href="#image-6"></use>
+                      </pattern>
+                      <image id="image-6" width="48" height="48" xlink:href="data:image/png;base64,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"></image>
+                  </defs>
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Rectangle">
+                          <use fill-opacity="0.2" fill="url(#pattern-2)" fill-rule="evenodd" xlink:href="#path-1"></use>
+                          <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="299" height="249"></rect>
+                      </g>
+                      <g id="Rectangle-Copy">
+                          <use fill="url(#pattern-5)" fill-rule="evenodd" xlink:href="#path-4"></use>
+                          <rect stroke="#979797" stroke-width="1" x="50.5" y="24.5" width="199" height="149"></rect>
+                      </g>
+                      <text id="" font-family="FontAwesome" font-size="24" font-weight="normal" fill="#000000">
+                          <tspan x="45" y="21"></tspan>
+                      </text>
+                      <text id="" transform="translate(275.500000, 174.500000) rotate(90.000000) translate(-275.500000, -174.500000) " font-family="FontAwesome" font-size="46" font-weight="normal" fill="#000000">
+                          <tspan x="265.5" y="190.5"></tspan>
+                      </text>
+                      <text id="" transform="translate(24.500000, 25.000000) rotate(90.000000) translate(-24.500000, -25.000000) " font-family="FontAwesome" font-size="48" font-weight="normal" fill="#000000">
+                          <tspan x="14" y="42"></tspan>
+                      </text>
+                      <text id="" font-family="FontAwesome" font-size="72" font-weight="normal" fill="#000000">
+                          <tspan x="235" y="236"></tspan>
+                      </text>
+                      <text id="lower" font-family="AvenirNextCondensed-Regular, Avenir Next Condensed" font-size="24" font-style="condensed" font-weight="normal" fill="#000000">
+                          <tspan x="188" y="218">lower</tspan>
+                      </text>
+                      <text id="right" font-family="AvenirNextCondensed-Regular, Avenir Next Condensed" font-size="24" font-style="condensed" font-weight="normal" fill="#000000">
+                          <tspan x="255" y="154">right</tspan>
+                      </text>
+                      <text id="left-copy" font-family="AvenirNextCondensed-Regular, Avenir Next Condensed" font-size="24" font-style="condensed" font-weight="normal" fill="#000000">
+                          <tspan x="11" y="54">left</tspan>
+                      </text>
+                      <text id="upper" font-family="AvenirNextCondensed-Regular, Avenir Next Condensed" font-size="24" font-style="condensed" font-weight="normal" fill="#000000">
+                          <tspan x="62" y="19">upper</tspan>
+                      </text>
+                  </g>
+              </svg>
+            </p>
+            <p>The cropping is defined via pixel-coordinates of the upper-left and lower-right corner of a box. Therefore, the pixel-value for <i>Cropping-Left</i> has to be smaller than <i>Cropping-Right</i> and <i>Cropping-Top</i> has to be smaller than <i>Cropping-Lower</i>. Coordinates can be negative and also greater than the orginal image's dimensions if you followed the rules before. The service's response is a pure image/jpeg that can be viewed in your browser, saved or processed by anything calling the API.</p>
+          <h4>The Demo-WebApp</h4>
+          <p>
+            <form action="/cropper" method="post" enctype=multipart/form-data>
+              <div class="mitte" style="border-width: 1px; border-color: #ccc; border-style: solid; margin-bottom: 20px; border-radius: 10px;">
+                <label for="file">Choose an image to crop:</label>
+                <input name="file" type="file" id="file">
+                <label for="id" style="margin-top: 20px;">Cropping-Left</label>
+                <input class="u-full-width" type="number" placeholder="e.g. 10" id="left" name="left">
+                <label for="id">Cropping-Upper</label>
+                <input class="u-full-width" type="number" placeholder="e.g. 20" id="upper" name="upper">
+                <label for="id">Cropping-Right</label>
+                <input class="u-full-width" type="number" placeholder="e.g. 200" id="right" name="right">
+                <label for="id">Cropping-Lower</label>
+                <input class="u-full-width" type="number" placeholder="e.g. 100" id="lower" name="lower">
+              
+              <div style="text-align:center; margin-top: 20px;"><input class="button-primary" type="submit" value="Crop it!"></div>  
+              </div>
+            </form>
+          </p>
+          <div class="sticky"><h1>🦉</h1></div>
+          <h4>FAQ:</h4>
+
+          <h5>How to use the API-endpoint of Image-Cropping-Microservice</h5>
+          <p>The actual microservice is located at <a href="http://leachim.pythonanywhere.com/cropper">http://leachim.pythonanywhere.com/cropper</a> and can be requested by any HTTP-Client (e.g. the WebApp above) via the POST-method. For a valid request there are some rules to follow:</p>
+            <p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Argument</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>API-endpoint</td>
+                    <td>HTTP-POST @ http://leachim.pythonanywhere.com/cropper</td>
+                  </tr>
+                  <tr>
+                    <td>content-type</td>
+                    <td>multipart/form-data</td>
+                  </tr>
+                  <tr>
+                    <td>file</td>
+                    <td>an image file that can be handled by Pillow. Tested with .PNG and .JPEG/.JPG, .GIF-files do not work.</td>
+                  </tr>
+                  <tr>
+                    <td>left</td>
+                    <td>some Integer smaller than right</td>
+                  </tr>
+                  <tr>
+                    <td>upper</td>
+                    <td>some Integer smaller than lower</td>
+                  </tr>
+                  <tr>
+                    <td>right</td>
+                    <td>some Integer greater than left</td>
+                  </tr>
+                  <tr>
+                    <td>lower</td>
+                    <td>some Integer greater than upper</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </p>
+            <p>The parameters and arguments can be included in form-data or as URL-arguments (see example in error-JSON below). You have to give all the arguments in one of these two ways, otherwise you will get an error-JSON.</p>
+
+          <h5>Error-Responses</h5>
+          <p>
+          <span>Errors are handled with JSON-Responses in a format like this:</span>
+            <pre><code>{
+"#error": "Invalid dimensions for area to crop. Requirements: upper < lower und left < right",
+"exampleURL": "http://leachim.pythonanywhere.com/cropper?left=100&upper=200&right=300&lower=400"
+}</code></pre>
+          </p>
+
+            <h5>Why is the API so slow 🐦?</h5>
+            <p>
+            It is hosted with a free pythonanywhere account, resulting in limited computing power, limited bandwith and high latency. Pillow's speed seems to be very dependent on the file size. An image with 1080 x 1080 pixels and 117 KB needs something around 150ms and an image with 5184 × 3456 and 8.6 MB needs around 2s just to be cropped (measured with time.clock() without request-response-time on an old Macbook Air).</p>
+            <p>On pythonanywhere.com all the network latency and other limitations are added, leading to around 600ms for the smaller image and around 46s for the big image (with my internet-connection from Germany). Anyway, it fulfills its purpose for being a showcase.
+            </p>
+
+            <h5>Can I have a link to my cropped image?</h5>
+            <p>
+            No you can't, because there is nothing saved to the server's filesystem. My goal was to create an API that manipulates an image without actually saving it. The request's body content is handed directly to Pillow and Pillow's cropped image is responded via Flask to the client. There is no file.save() executed inbetween, in fact the cropped image is only generated for that specific response. Maybe, it is cached by pythonanywhere.com's servers somehow but not by this API's backend. 
+            </p>
+
+            <a name="libraries"></a><h5>Third-party libraries/frameworks I used:</h5>
+            <p>
+            Cropping is done with <a href="https://pillow.readthedocs.io/en/latest/" target="_blank">Pillow</a>, HTTP-endpoint is powered by <a href="http://flask.pocoo.org/" target="_blank">Flask</a>, responsive grid-layout is created with <a href="http://getskeleton.com/">Skeleton</a>. Image processing without saving based upon <a href="https://stackoverflow.com/questions/33101935/convert-pil-image-to-byte-array">stackoverflow.com-Thread</a> answered by: <a href="https://stackoverflow.com/users/5440610/evelyn-jeba">Evelyn Jeba</a>
+            <p>
+        </div>
+      </div>
+      <div class="two columns">&nbsp;<div style="position: fixed; left: 91.666%; transform: translate(-102%, 0);"><h1>🐿</h1></div></div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
